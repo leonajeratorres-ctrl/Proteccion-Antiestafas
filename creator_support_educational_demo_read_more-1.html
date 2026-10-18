@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creator Support</title>
+<style>
+:root{--bg:#111418;--panel:#191e24;--line:#343d47;--text:#f5f7fa;--muted:#aab5c2;--green:#00b868;--greenHover:#079b5b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 Arial,Helvetica,sans-serif}button,input{font:inherit}button{cursor:pointer}
+.topbar{height:62px;display:flex;align-items:center;gap:26px;padding:0 22px;background:#0d1014;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:3}
+.brand{font-size:23px;font-weight:900;letter-spacing:-1px;white-space:nowrap}.brand span{color:#9ee9c6}.nav{display:flex;gap:22px;font-weight:700;color:#d8dee6}.topsearch{flex:1;max-width:420px}.topsearch input,.search input{width:100%;background:#0e1217;border:1px solid #47525e;border-radius:22px;padding:11px 15px;color:#fff;outline:none}.topright{margin-left:auto;white-space:nowrap;font-weight:700}
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:calc(100vh - 110px)}aside{border-right:1px solid var(--line);padding:17px;background:#13181d}.profile{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:16px;font-weight:700}.profile img{width:36px;height:36px;border-radius:50%;background:#303944}.side{display:grid;gap:4px;margin-top:12px}.side div{padding:9px;border-radius:7px;color:#cbd4df}.side div:first-child{background:#252d36;color:#fff}
+main{padding:26px;max-width:1500px;width:100%;margin:auto}.columns{display:grid;grid-template-columns:minmax(400px,1.1fr) minmax(300px,.9fr);gap:23px}.heading{display:flex;align-items:center;gap:16px;margin-bottom:18px}.mark{width:70px;height:70px;display:grid;place-items:center;background:#f0f3f6;color:#111820;clip-path:polygon(14% 0,100% 14%,86% 100%,0 86%);font-size:32px;font-weight:900}h1{font-size:32px;line-height:1.12;margin:0 0 6px}h2{font-size:19px;margin:0 0 14px}.muted{color:var(--muted)}.panel{background:linear-gradient(145deg,#1a2026,#151a20);border:1px solid var(--line);border-radius:10px;padding:17px;margin-bottom:14px}.demo{background:#15251e;border:1px solid #246545;color:#d6f7e5;padding:9px 11px;border-radius:7px;font-size:12px;margin-bottom:14px}.read-more{max-width:900px;margin:0 auto 18px;padding:0 18px}.read-more details{background:#151a20;border:1px solid var(--line);border-radius:9px;padding:14px 16px;color:#d9e0e8}.read-more summary{cursor:pointer;font-weight:800;list-style:none}.read-more summary::-webkit-details-marker{display:none}.read-more summary:after{content:'＋';float:right}.read-more details[open] summary:after{content:'−'}.read-more p{color:#b8c3cf;line-height:1.6}.read-more h2{margin-top:16px}.search{margin:12px 0}.search button{width:100%;padding:11px;background:#e9edf1;border:0;border-radius:7px;font-weight:800;color:#111820}.status{min-height:20px;margin:9px 0;color:var(--muted);font-size:13px}.user-row{display:grid;grid-template-columns:48px minmax(80px,1fr) auto;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid #2b333d}.user-row:last-child{border-bottom:0}.avatar{width:46px;height:46px;object-fit:cover;border-radius:50%;background:#303944}.username{font-weight:700;overflow-wrap:anywhere}.handle{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.btn-light{background:#eef1f4;color:#111820;border:0;border-radius:7px;padding:10px 13px;font-weight:800}.amount-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.amount{background:#222a33;border:1px solid #47525e;color:white;border-radius:7px;padding:12px 4px;font-weight:700}.amount.active{border:2px solid var(--green);background:#103023}.primary{width:100%;margin-top:14px;padding:13px;background:var(--green);border:0;border-radius:7px;color:white;font-weight:800}.primary:hover{background:var(--greenHover)}
+.banner{min-height:205px;padding:22px;border-radius:10px;background:linear-gradient(90deg,#000b,#0001),linear-gradient(135deg,#164b70,#258bc1 55%,#233d50);display:flex;flex-direction:column;justify-content:end;position:relative;overflow:hidden;margin-bottom:17px}.banner:after{content:"◇";position:absolute;right:17px;top:-55px;font-size:250px;color:#fff;opacity:.12;font-weight:900}.banner h2{font-size:27px;max-width:300px;z-index:1;margin-bottom:7px}.banner p{z-index:1;max-width:300px;margin:0}.recent{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #2b333d}.recent:last-child{border:0}.recent .avatar{width:40px;height:40px}.when{font-size:12px;color:var(--muted)}footer{border-top:1px solid var(--line);padding:18px;text-align:center;color:#9ca8b7;font-size:12px}
+.backdrop{position:fixed;inset:0;background:#000b;display:none;place-items:center;padding:18px;z-index:5}.modal{max-width:420px;width:100%;background:#1b222a;border:1px solid #46515e;border-radius:12px;padding:23px;box-shadow:0 20px 70px #0009}.modal h2{font-size:22px}.modal-actions{display:flex;gap:10px;margin-top:18px}.modal-actions button{flex:1;padding:12px;border:0;border-radius:7px;font-weight:800}.cancel{background:#303944;color:#fff}.confirm{background:var(--green);color:white}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:none;background:#f4f7fb;color:#111820;padding:13px 17px;border-radius:9px;z-index:8;max-width:90%;font-weight:700}
+@media(max-width:980px){.columns{grid-template-columns:1fr}aside{display:none}.layout{grid-template-columns:1fr}.nav{display:none}.topbar{gap:14px}main{padding:18px}}
+@media(max-width:560px){.topbar{height:56px;padding:0 12px;gap:10px}.brand{font-size:18px}.topsearch{min-width:40px}.topsearch input{padding:9px 10px}.topright{font-size:12px}main{padding:13px}.heading{align-items:flex-start;gap:11px}.mark{width:54px;height:54px;font-size:25px;flex-shrink:0}h1{font-size:26px}.amount-grid{grid-template-columns:repeat(2,1fr)}.banner{min-height:175px}.recent{grid-template-columns:40px minmax(0,1fr)}.when{display:none}.user-row{grid-template-columns:42px minmax(70px,1fr) auto;gap:8px}.avatar{width:40px;height:40px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Creator<span>Support</span></div>
+  <nav class="nav"><span>Inicio</span><span>Creadores</span><span>Comunidad</span></nav>
+  <div class="topsearch"><input id="quickSearch" placeholder="Buscar usuarios…" aria-label="Buscar usuarios"></div>
+  <div class="topright">◇ <span>2,500</span></div>
+</header>
+<div class="layout">
+<aside>
+  <div class="profile"><div style="width:36px;height:36px;border-radius:50%;background:#303944;display:grid;place-items:center">V</div><span>VideoDemo</span></div>
+  <div class="side"><div>⌂ &nbsp; Inicio</div><div>♙ &nbsp; Mi perfil</div><div>✉ &nbsp; Mensajes</div><div>♧ &nbsp; Amigos</div><div>◇ &nbsp; Saldo</div><div>▣ &nbsp; Historial</div><div>♧ &nbsp; Comunidad</div><div>⚙ &nbsp; Ajustes</div></div>
+</aside>
+<main>
+<div class="columns">
+<section>
+  <div class="heading"><div class="mark">◇</div><div><h1>Apoya a un creador</h1><div>Encuentra un perfil y elige una cantidad.</div></div></div>
+  <div class="panel">
+    <h2>Buscar perfil público</h2>
+    <div class="search"><input id="username" placeholder="Escribe el nombre exacto de Roblox…" autocomplete="off"></div>
+    <button class="search" id="searchBtn">Buscar usuario</button>
+    <div class="status" id="status">Los resultados usan únicamente información pública.</div>
+    <div style="font-weight:700;margin:8px 0">Resultados</div>
+    <div id="results" class="muted">Busca un usuario para mostrar su perfil.</div>
+  </div>
+  <div class="panel">
+    <h2>Elige una cantidad</h2>
+    <div class="amount-grid">
+      <button class="amount active" data-amount="10">◇ 10</button><button class="amount" data-amount="50">◇ 50</button><button class="amount" data-amount="100">◇ 100</button><button class="amount" data-amount="500">◇ 500</button>
+      <button class="amount" data-amount="1000">◇ 1,000</button><button class="amount" data-amount="2500">◇ 2,500</button><button class="amount" data-amount="5000">◇ 5,000</button><button class="amount" data-amount="10000">◇ 10,000</button>
+    </div>
+    <button class="primary" id="donate">◇ &nbsp; Continuar</button>
+    
+  </div>
+</section>
+<section>
+  <div class="banner"><h2>Apoya a la comunidad</h2><p>Descubre perfiles y explora la comunidad de creadores.</p></div>
+  <div class="panel"><h2>Actividad reciente</h2>
+    <div id="recent">
+      <div class="recent"><div class="avatar" style="display:grid;place-items:center">😎</div><div><div class="username">BlockFan</div><div class="muted">◇ actividad de la comunidad</div></div><div class="when">Reciente</div></div>
+      <div class="recent"><div class="avatar" style="display:grid;place-items:center">🎮</div><div><div class="username">PixelPlayer</div><div class="muted">◇ actividad de la comunidad</div></div><div class="when">Reciente</div></div>
+      <div class="recent"><div class="avatar" style="display:grid;place-items:center">⭐</div><div><div class="username">GameBuddy</div><div class="muted">◇ actividad de la comunidad</div></div><div class="when">Reciente</div></div>
+    </div>
+  </div>
+</section>
+</div>
+</main>
+</div>
+<section class="read-more">
+  <details>
+    <summary>Leer más</summary>
+    <h2>Información importante</h2>
+    <p>Esta página es una demostración educativa independiente creada para aprender a reconocer posibles estafas. No es un servicio oficial de Roblox ni está afiliada a Roblox Corporation.</p>
+    <p>Las cantidades de Robux, las confirmaciones y los eventos de actividad que aparecen aquí son ficticios. No se realizan compras, no se transfieren Robux y no se modifica ninguna cuenta.</p>
+    <p>La búsqueda utiliza información pública de perfiles de Roblox. Nunca introduzcas tu contraseña, códigos de verificación ni datos personales en páginas que prometan Robux gratis o recompensas inesperadas.</p>
+    <h2>Señales de alerta</h2>
+    <ul>
+      <li>Promesas de Robux gratis a cambio de iniciar sesión en una página externa.</li>
+      <li>Solicitudes de contraseña, códigos de seguridad o cookies de sesión.</li>
+      <li>Mensajes que presionan para actuar rápido o compartir un enlace con amigos.</li>
+      <li>Páginas que imitan una marca conocida sin ser su sitio oficial.</li>
+    </ul>
+  </details>
+</section>
+<footer>Creator Support · Consulta «Leer más» para conocer cómo funciona esta demostración.</footer>
+<div class="backdrop" id="backdrop" role="dialog" aria-modal="true">
+  <div class="modal"><h2 id="modalTitle">Revisar acción</h2><p id="modalText"></p><div class="demo">Esta acción es una demostración: no se enviarán Robux ni se modificará ninguna cuenta.</div><div class="modal-actions"><button class="cancel" id="cancel">Volver</button><button class="confirm" id="confirm">Ver confirmación</button></div></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);let selectedUser=null,amount=10,pending=null,timer;
+function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(timer);timer=setTimeout(()=>$('toast').style.display='none',3300)}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function searchUser(){
+ const name=$('username').value.trim();if(!name){$('status').textContent='Escribe un nombre primero.';return}
+ $('searchBtn').disabled=true;$('status').textContent='Consultando perfiles públicos…';$('results').textContent='';
+ try{
+  const r=await fetch('https://users.roblox.com/v1/usernames/users',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({usernames:[name],excludeBannedUsers:false})});
+  if(!r.ok)throw Error('API '+r.status);const d=await r.json();
+  if(!d.data?.length){selectedUser=null;$('status').textContent='No se encontró ese nombre exacto. Comprueba la escritura.';$('results').textContent='Sin resultados.';return}
+  const u=d.data[0];selectedUser=u;let img='';
+  try{const ar=await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${u.id}&size=150x150&format=Png&isCircular=true`);if(ar.ok)img=(await ar.json()).data?.[0]?.imageUrl||''}catch(e){}
+  $('status').textContent='Perfil público encontrado. Las cantidades son ficticias.';
+  $('results').innerHTML=`<div class="user-row"><img class="avatar" src="${esc(img)}" alt="Avatar"><div><div class="username">${esc(u.displayName||u.name)}</div><div class="handle">@${esc(u.name)} · ID ${esc(u.id)}</div></div><button class="btn-light" id="select">Seleccionar</button></div>`;
+  $('select').onclick=()=>{selectedUser=u;$('select').textContent='Elegido ✓';$('status').textContent='Perfil seleccionado: @'+u.name+'. Elige una cantidad ficticia.'};
+ }catch(e){$('status').textContent='No se pudo conectar con Roblox desde este navegador. Puede ser un bloqueo de red; no se ha enviado ningún dato privado.';$('results').textContent='La búsqueda requiere conexión a la API pública de Roblox.'}
+ finally{$('searchBtn').disabled=false}
+}
+$('searchBtn').onclick=searchUser;$('username').addEventListener('keydown',e=>{if(e.key==='Enter')searchUser()});
+$('quickSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){$('username').value=e.target.value;$('username').scrollIntoView({behavior:'smooth',block:'center'});searchUser()}});
+document.querySelectorAll('.amount').forEach(b=>b.onclick=()=>{document.querySelectorAll('.amount').forEach(x=>x.classList.remove('active'));b.classList.add('active');amount=+b.dataset.amount});
+$('donate').onclick=()=>{if(!selectedUser){toast('Primero busca y selecciona un perfil.');return}pending=selectedUser;$('modalTitle').textContent='Confirmar apoyo';$('modalText').textContent=`Esta demostración mostrará una confirmación para @${pending.name} por ${amount.toLocaleString('es-MX')} Robux ficticios. No se hará ninguna transferencia.`;$('backdrop').style.display='grid'};
+$('cancel').onclick=()=>$('backdrop').style.display='none';
+$('confirm').onclick=()=>{$('backdrop').style.display='none';const div=document.createElement('div');div.className='recent';div.innerHTML=`<div class="avatar" style="display:grid;place-items:center">🎬</div><div><div class="username">${esc(pending.name)}</div><div class="muted">◇ evento de demostración · ${amount.toLocaleString('es-MX')}</div></div><div class="when">Ahora</div>`;$('recent').prepend(div);toast('Demostración completada. No se transfirió moneda virtual.')};
+$('backdrop').onclick=e=>{if(e.target===$('backdrop'))$('backdrop').style.display='none'};
+</script>
+</body>
+</html>
