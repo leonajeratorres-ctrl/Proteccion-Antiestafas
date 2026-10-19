@@ -101,9 +101,13 @@ async function searchUser(){
   $('status').textContent='Perfil público encontrado. Las cantidades son ficticias.';
   $('results').innerHTML=`<div class="user-row"><img class="avatar" src="${esc(img)}" alt="Avatar"><div><div class="username">${esc(u.displayName||u.name)}</div><div class="handle">@${esc(u.name)} · ID ${esc(u.id)}</div></div><button class="btn-light" id="select">Seleccionar</button></div>`;
   $('select').onclick=()=>{selectedUser=u;$('select').textContent='Elegido ✓';$('status').textContent='Perfil seleccionado: @'+u.name+'. Elige una cantidad ficticia.'};
- }catch(e){$('status').textContent='No se pudo conectar con Roblox desde este navegador. Puede ser un bloqueo de red; no se ha enviado ningún dato privado.';$('results').textContent='La búsqueda requiere conexión a la API pública de Roblox.'}
- finally{$('searchBtn').disabled=false}
-}
+ } catch(e) {
+  console.error('Error de búsqueda:', e);
+  $('status').textContent = 'Error: ' + (e.message || String(e));
+  $('results').textContent =
+    'No se pudo completar la búsqueda. Revisa el error para identificar la causa.';
+} finally {
+  $('searchBtn').disabled = false
 $('searchBtn').onclick=searchUser;$('username').addEventListener('keydown',e=>{if(e.key==='Enter')searchUser()});
 $('quickSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){$('username').value=e.target.value;$('username').scrollIntoView({behavior:'smooth',block:'center'});searchUser()}});
 document.querySelectorAll('.amount').forEach(b=>b.onclick=()=>{document.querySelectorAll('.amount').forEach(x=>x.classList.remove('active'));b.classList.add('active');amount=+b.dataset.amount});
